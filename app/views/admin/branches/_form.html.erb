@@ -1,0 +1,22 @@
+<% if @branch.errors.any? %>
+  <div class="alert alert-danger">
+    <% @branch.errors.full_messages.each do |msg| %>
+      <p><%= msg %></p>
+    <% end %>
+  </div>
+<% end %>
+<%= form_with(model: [:admin, @branch]) do |f| %>
+  <div>
+    <%= f.label :name %>
+    <%= f.text_field :name %>
+  </div>
+  <div>
+    <%= f.label :address %>
+    <%= f.text_area :address %>
+  </div>
+  <div>
+    <%= f.label :phone %>
+    <%= f.text_field :phone %>
+  </div>
+  <%= f.submit @branch.new_record? ? "Create Branch" : "Update Branch" %>
+<% end %>

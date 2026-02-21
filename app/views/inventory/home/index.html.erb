@@ -1,0 +1,26 @@
+<div class="container">
+  <div class="row mt-4">
+    <div class="col-md-4">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">My Products</h5>
+          <p class="card-text display-4"><%= current_user.products.count %></p>
+          <%= link_to "See All", inventory_products_path, class: "btn btn-primary" %>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Analytics</h5>
+          <p class="card-text display-4">0</p>
+          <%= link_to "See Analytics", inventory_analytics_path, class:"btn btn-primary"%>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="mt-4">
+    <h3>Acciones Rápidas</h3>
+    <%= link_to "Add Product", new_inventory_product_path, class: "btn btn-success" %>
+  </div>
+</div>
