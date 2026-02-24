@@ -1,12 +1,13 @@
 Rails.application.routes.draw do
   devise_for :users
   root "products#index"
-  resources :products, only: [ :index, :show ]
+  resources :products, only: [ :index, :show ] # /products
   # resources :cart, only: [ :show, :update, :destroy ]
 
   namespace :admin do
     root to: "dashboard#index"  # /admin
-    resources :branches
+    resources :products # /admin/products
+    resources :branches # /admin/branches
     resources :warehouses
     resources :users
     resources :metrics
@@ -15,12 +16,15 @@ Rails.application.routes.draw do
   namespace :customer do
     root to: "profile#index"  # /customer
     get "settings" => "profile#settings"
+    resource :cart, only: [ :show, :update, :destroy ] # /customer/cart
   end
 
   namespace :inventory do
     root to: "home#index"  # /inventory
-    resources :products do
-      resources :product_variants
+    resources :products do # /inventory/products
+      resources :product_variants do # /inventory/products/:product_id/product_variants
+        resources :inventories, only: [ :new, :create, :edit, :update, :index ] # /inventory/products/:product_id/product_variants/:product_variant_id/inventories
+      end
     end
     get "analytics" => "analytics#index"
   end

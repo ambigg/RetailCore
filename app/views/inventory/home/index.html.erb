@@ -1,26 +1,41 @@
-<div class="container">
-  <div class="row mt-4">
-    <div class="col-md-4">
+<div class="container py-4">
+  <h1 class="mb-4">Inventory Dashboard</h1>
+  <div class="row g-4">
+    <div class="col-md-3">
       <div class="card">
         <div class="card-body">
-          <h5 class="card-title">My Products</h5>
-          <p class="card-text display-4"><%= current_user.products.count %></p>
+          <h5 class="card-title">Products</h5>
+          <p class="display-4"><%= current_user.products.count %></p>
           <%= link_to "See All", inventory_products_path, class: "btn btn-primary" %>
         </div>
       </div>
     </div>
-    <div class="col-md-4">
+    <div class="col-md-3">
       <div class="card">
         <div class="card-body">
-          <h5 class="card-title">Analytics</h5>
-          <p class="card-text display-4">0</p>
-          <%= link_to "See Analytics", inventory_analytics_path, class:"btn btn-primary"%>
+          <h5 class="card-title">Variants</h5>
+          <p class="display-4"><%= ProductVariant.joins(:product).where(products: { user_id: current_user.id }).count %></p>
+          <%= link_to "See All", inventory_products_path, class: "btn btn-primary" %>
         </div>
       </div>
     </div>
-  </div>
-  <div class="mt-4">
-    <h3>Acciones Rápidas</h3>
-    <%= link_to "Add Product", new_inventory_product_path, class: "btn btn-success" %>
+    <div class="col-md-3">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Total Stock</h5>
+          <p class="display-4"><%= Inventory.joins(product_variant: :product).where(products: { user_id: current_user.id }).sum(:quantity) %></p>
+          <%= link_to "See Analytics", inventory_analytics_path, class: "btn btn-primary" %>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Add Product</h5>
+          <p class="display-4"><i class="bi bi-plus-circle"></i></p>
+          <%= link_to "New Product", new_inventory_product_path, class: "btn btn-success" %>
+        </div>
+      </div>
+    </div>
   </div>
 </div>

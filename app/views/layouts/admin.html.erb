@@ -13,7 +13,7 @@
     <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
   </head>
-  <body class="d-flex flex-column h-100">
+  <body data-bs-theme="dark" class="d-flex flex-column h-100">
     <%= render 'layouts/admin/nav' %>
     <div class="d-flex">
       <%= render 'layouts/admin/sidebar' %>

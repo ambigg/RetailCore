@@ -1,0 +1,18 @@
+<% if @inventory.errors.any?%>
+  <div class="alert alert-danger">
+    <%@inventory.errors.full_messages.each do |msg| %>
+      <p><%= msg%></p>
+    <% end %>
+  </div>
+<% end %>
+<%= form_with(model: [:inventory, @product, @variant, @inventory]) do |f| %>
+  <div>
+    <%= f.label :branch_id, "Branch" %>
+    <%= f.select :branch_id, Branch.all.map { |b| [b.name, b.id] }, include_blank: "Web / General" %>
+  </div>
+  <div>
+    <%= f.label :quantity %>
+    <%= f.number_field :quantity, min: 0, step: 1 %>
+  </div>
+  <%= f.submit %>
+<% end %>

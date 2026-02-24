@@ -13,14 +13,14 @@
     <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
   </head>
-  <body class="d-flex flex-column h-100">
+  <body data-bs-theme="dark" class="d-flex flex-column h-100">
     <%= render 'layouts/warehouse/nav' %>
-    <%= render 'layouts/flash'%>
-    <main class="flex-shrink-0">
-      <div class="container-fluid py-4">
+    <div class="d-flex">
+      <main class="flex-grow-1 p-4">
+        <%= render 'layouts/flash'%>
         <%= yield %>
-      </div>
-    </main>
+      </main>
+    </div>
     <%= render 'layouts/footer' %>
   </body>
 </html>

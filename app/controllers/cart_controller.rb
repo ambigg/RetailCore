@@ -1,7 +1,5 @@
-class CartController < ApplicationController
-  before_action :authenticate_user!
+class CartController
   def show
-    @cart_items = current_user.cart_items.includes(:product_variant)
   end
   def update
   end

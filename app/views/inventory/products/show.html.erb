@@ -38,7 +38,7 @@
             <td><%= variant.size %></td>
             <td><%= variant.material %></td>
             <td><%= number_to_currency(variant.price) %></td>
-            <td><%= variant.stock %></td>
+            <td><%= link_to "See Stock",inventory_product_product_variant_inventories_path(@product, variant)%></td>
             <td><%= link_to "Edit", edit_inventory_product_product_variant_path(@product, variant) %></td>
             <td><%= link_to "Delete", inventory_product_product_variant_path(@product, variant),
                 data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } %></td>

@@ -1,78 +1,58 @@
 @import 'bootstrap/scss/bootstrap';
 @import 'bootstrap-icons/font/bootstrap-icons';
 
-// Base
 body {
-  background-color: #13111e;
-  color: #f3f0f0;
+  background-color: #13111e;  
 }
 
-// Navbar y sidebar
 .navbar {
-  background-color: #1C1829 !important;
+  background-color: #1C1829 !important; 
 }
 
-.nav-link {
-  color: #f3f0f0 !important;
-}
-
-// Cards
 .card {
-  background-color: #1C1829;
-  border: 1px solid #2d2a3e;
-  color: #f3f0f0;
+  background-color: #1C1829; 
+  border-color: #2d2a3e;
 }
 
-// Tablas
 .table {
   --bs-table-bg: #1C1829;
-  --bs-table-color: #f3f0f0;
   --bs-table-border-color: #2d2a3e;
 }
 
-// Inputs
 .form-control, .form-select {
   background-color: #2d2a3e;
   border-color: #3d3a4e;
-  color: #f3f0f0;
 
   &:focus {
-    background-color: #2d2a3e;
-    color: #f3f0f0;
     border-color: #667eea;
     box-shadow: none;
   }
 }
 
-// Dropdown
 .dropdown-menu {
   background-color: #1C1829;
   border-color: #2d2a3e;
 
-  .dropdown-item {
-    color: #f3f0f0;
-    &:hover {
-      background-color: #2d2a3e;
-    }
+  .dropdown-item:hover {
+    background-color: #2d2a3e;
   }
 }
 
-// Footer
 .footer {
   background-color: #1C1829;
-  color: #f3f0f0;
 
-  a {
-    color: #f3f0f0;
-    text-decoration: none;
-    &:hover { color: #667eea; }
+  a:hover {
+    color: #667eea;
   }
+}
+
+a:not(.btn):hover {
+  color: #667eea !important;
 }
 
 // Logo
 #logo {
   font-size: 24px;
-  color: #f3f0f0;
   text-transform: uppercase;
   letter-spacing: -1px;
   font-weight: bold;
@@ -85,7 +65,7 @@ body {
   padding: 80px 0;
 }
 
-// Utils
+// Utils 
 .hover-lift {
   transition: transform 0.2s ease, box-shadow 0.2s ease;
   &:hover {
