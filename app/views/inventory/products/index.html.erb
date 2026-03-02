@@ -1,12 +1,14 @@
-<div class="container py-4">
-  <div class="d-flex justify-content-between align-items-center mb-5">
-    <h1 class="h2 fw-light">All Products</h1>
-    <%= link_to new_inventory_product_path, class: "btn btn-outline-dark rounded-pill px-4 d-flex align-items-center gap-2" do %>
-      <i class="bi bi-plus-lg"></i> Add Product
-    <% end %>
+<div class="page-header">
+  <div>
+    <h1 class="page-title">All Products</h1>
   </div>
-  <% if @products.any? %>
-    <table class ="table">
+  <%= link_to new_inventory_product_path, class: "btn btn-primary" do %>
+    <i class="bi bi-plus-lg"></i> Add Product
+  <% end %>
+</div>
+<% if @products.any? %>
+  <div class="card">
+    <table class="table">
       <thead>
         <tr>
           <th>Name</th>
@@ -17,26 +19,26 @@
         </tr>
       </thead>
       <tbody>
-        <% @products.each do |product|%>
+        <% @products.each do |product| %>
           <tr>
-            <td><%= product.name%></td>
-            <td><%= product.description%></td>
-            <td><%= product.category%></td>
-            <td><%= product.product_variants.count%></td>
-            <td><%= link_to 'Show', inventory_product_path(product)%></td>
-            <td><%= link_to 'Edit', edit_inventory_product_path(product)%></td>
-            <td><%= link_to 'Delete', inventory_product_path(product), data: { turbo_method: :delete, turbo_confirm: "Are you sure you want to delete?"}%></td>
+            <td><%= product.name %></td>
+            <td class="text-muted"><%= product.description %></td>
+            <td><%= product.category %></td>
+            <td class="text-accent"><%= product.product_variants.count %></td>
+            <td><%= link_to 'Show', inventory_product_path(product) %></td>
+            <td><%= link_to 'Edit', edit_inventory_product_path(product) %></td>
+            <td><%= link_to 'Delete', inventory_product_path(product), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } %></td>
           </tr>
-        <%end%>
+        <% end %>
       </tbody>
     </table>
-  <% else %>
-    <div class="text-center py-5">
-      <i class="bi bi-inbox display-1 text-secondary"></i>
-      <p class="lead text-secondary mt-3">You don't have any products yet.</p>
-      <%= link_to new_inventory_product_path, class: "btn btn-dark rounded-pill px-4 mt-2" do %>
-        <i class="bi bi-plus-lg me-2"></i>Create first product
-      <% end %>
-    </div>
-  <% end %>
-</div>
+  </div>
+<% else %>
+  <div class="text-center py-5">
+    <i class="bi bi-inbox display-1 text-muted"></i>
+    <p class="page-subtitle mt-3">You don't have any products yet.</p>
+    <%= link_to new_inventory_product_path, class: "btn btn-primary mt-2" do %>
+      <i class="bi bi-plus-lg"></i> Create first product
+    <% end %>
+  </div>
+<% end %>

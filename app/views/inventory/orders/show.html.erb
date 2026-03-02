@@ -1,0 +1,71 @@
+<div class="page-header">
+  <div>
+    <h1 class="page-title">Order #<%= @order.id %></h1>
+    <div class="page-subtitle"><%= @order.created_at.strftime("%B %d, %Y") %> · <span class="text-accent"><%= @order.status.humanize %></span></div>
+  </div>
+  <%= link_to "Back", inventory_orders_path, class: "btn btn-outline" %>
+</div>
+<div class="row mb-4">
+  <div class="col-md-6">
+    <div class="page-subtitle mb-2">Customer</div>
+    <div class="card">
+      <div class="card-body">
+        <p class="mb-1 text-muted"><%= @order.customer.email %></p>
+        <p class="mb-1 text-muted"><%= @order.customer.phone %></p>
+        <p class="mb-0 text-muted"><%= @order.customer.address %></p>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="page-subtitle mb-2">Shipping</div>
+    <div class="card">
+      <div class="card-body">
+        <p class="mb-1 text-muted"><%= @order.shipping_address %></p>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="page-subtitle mb-2">Order Items</div>
+<div class="card mb-4">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Product</th>
+        <th>SKU</th>
+        <th>Color</th>
+        <th>Size</th>
+        <th>Material</th>
+        <th>Qty</th>
+        <th>Price</th>
+        <th>Total</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @order.order_items.each do |item| %>
+        <tr>
+          <td><%= item.product_variant.product.name %></td>
+          <td class="text-muted"><%= item.product_variant.sku %></td>
+          <td><%= item.product_variant.color %></td>
+          <td><%= item.product_variant.size %></td>
+          <td><%= item.product_variant.material %></td>
+          <td><%= item.quantity %></td>
+          <td><%= number_to_currency(item.product_variant.price) %></td>
+          <td class="text-accent"><%= number_to_currency(item.product_variant.price * item.quantity) %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+<div class="page-subtitle mb-2">Update Status</div>
+<div class="card">
+  <div class="card-body d-flex gap-2">
+    <% if @order.pending? %>
+      <%= button_to "Mark as Paid", inventory_order_path(@order),
+                  method: :patch, params: { status: :paid }, class: "btn btn-outline" %>
+    <% elsif @order.paid? %>
+      <%= button_to "Approve", inventory_order_path(@order),
+                  method: :patch, params: { status: :processing }, class: "btn btn-primary" %>
+    <% end %>
+  </div>
+</div>

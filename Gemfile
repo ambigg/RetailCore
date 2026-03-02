@@ -71,3 +71,6 @@ gem "cssbundling-rails", "~> 1.4"
 gem "devise", "~> 5.0"
 
 gem "pundit", "~> 2.5"
+
+gem "chartkick", "~> 5.2"
+gem "groupdate", "~> 6.7"

@@ -1,1 +1,28 @@
-<h1>ORDERS PROFILE</h1>
+<div class="page-header">
+  <h1 class="page-title">My Orders</h1>
+</div>
+<div class="table-responsive">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Order ID</th>
+        <th>Order Date</th>
+        <th>Status</th>
+        <th>Total</th>
+        <th>ACTIONS</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @orders.each do |order| %>
+        <tr>
+          <td><%= order.id %></td>
+          <td><%= order.created_at.strftime("%B %d, %Y") %></td>
+          <td><%= order.status.humanize %></td>
+          <td class="text-accent"><%= number_to_currency(order.total) %></td>
+          <td>
+            <%= link_to 'View', customer_order_path(order), class: 'btn btn-sm btn-primary' %>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>

@@ -1,10 +1,18 @@
 class Admin::UsersController < Admin::BaseController
   def index
-    @users = User.all
+  @users = User.all
+  if params[:role].present?
+    @users = User.where(role: params[:role])
+    render :list
+  else
+    @roles = User.distinct.pluck(:role)
+    render :index
+  end
   end
 
   def show
     @user = User.find(params[:id])
+    @orders = @user.orders.order(created_at: :desc)
   end
 
   def edit

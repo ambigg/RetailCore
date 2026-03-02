@@ -1,18 +1,18 @@
-<% if @inventory.errors.any?%>
+<% if @inventory.errors.any? %>
   <div class="alert alert-danger">
-    <%@inventory.errors.full_messages.each do |msg| %>
-      <p><%= msg%></p>
+    <% @inventory.errors.full_messages.each do |msg| %>
+      <p class="mb-0"><%= msg %></p>
     <% end %>
   </div>
 <% end %>
 <%= form_with(model: [:inventory, @product, @variant, @inventory]) do |f| %>
-  <div>
-    <%= f.label :branch_id, "Branch" %>
-    <%= f.select :branch_id, Branch.all.map { |b| [b.name, b.id] }, include_blank: "Web / General" %>
+  <div class="mb-3">
+    <%= f.label :branch_id, "Branch", class: "form-label" %>
+    <%= f.select :branch_id, Branch.all.map { |b| [b.name, b.id] }, { include_blank: "Web / General" }, { class: "form-select" } %>
   </div>
-  <div>
-    <%= f.label :quantity %>
-    <%= f.number_field :quantity, min: 0, step: 1 %>
+  <div class="mb-3">
+    <%= f.label :quantity, class: "form-label" %>
+    <%= f.number_field :quantity, min: 0, step: 1, class: "form-control" %>
   </div>
-  <%= f.submit %>
+  <%= f.submit class: "btn btn-primary" %>
 <% end %>

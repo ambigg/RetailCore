@@ -5,7 +5,6 @@ class ProductsController < ApplicationController
 
   def show
     @product = Product.find(params[:id])
-    @variants = @product.product_variants
-    @selected_variant = @variants.first
+  @variants = @product.product_variants.includes(:inventories)
   end
 end

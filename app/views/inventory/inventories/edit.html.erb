@@ -1,4 +1,8 @@
-<div class="container py-4">
-  <h1>Edit Stock for <%= @variant.sku%>%></h1>
-  <%= render 'form'%>
+<div class="page-header">
+  <div>
+    <h1 class="page-title">Edit Stock</h1>
+    <div class="page-subtitle"><%= @variant.sku %></div>
+  </div>
+  <%= link_to "Cancel", inventory_product_path(@product), class: "btn btn-outline" %>
 </div>
+<%= render 'form' %>

@@ -2,7 +2,10 @@ Rails.application.routes.draw do
   devise_for :users
   root "products#index"
   resources :products, only: [ :index, :show ] # /products
-  # resources :cart, only: [ :show, :update, :destroy ]
+  get "cart",                       to: "cart#show", as: :cart # /cart
+  post "cart/add/:variant_id",      to: "cart#add", as: :add_to_cart # / cart/add/:variant_id
+  delete "cart/remove/:variant_id", to: "cart#remove_item", as: :remove_from_cart # /cart/remove/:variant_id
+  delete "cart/clear",              to: "cart#clear", as: :clear_cart # /cart/clear
 
   namespace :admin do
     root to: "dashboard#index"  # /admin
@@ -11,30 +14,40 @@ Rails.application.routes.draw do
     resources :warehouses
     resources :users
     resources :metrics
+    resources :orders, only: [ :index, :show, :destroy ] # /admin/orders
   end
 
   namespace :customer do
     root to: "profile#index"  # /customer
+    resources :orders, only: [ :index, :show, :new, :create ] # /customer/orders
     get "settings" => "profile#settings"
-    resource :cart, only: [ :show, :update, :destroy ] # /customer/cart
   end
 
   namespace :inventory do
-    root to: "home#index"  # /inventory
+    root to: "dashboard#index"  # /inventory
     resources :products do # /inventory/products
       resources :product_variants do # /inventory/products/:product_id/product_variants
         resources :inventories, only: [ :new, :create, :edit, :update, :index ] # /inventory/products/:product_id/product_variants/:product_variant_id/inventories
       end
     end
-    get "analytics" => "analytics#index"
+    resources :branches, only: [ :index, :show ] # /inventory/branches
+    resources :warehouse, only: [ :index, :new, :create, :edit, :update ] # /inventory/warehouses
+    resources :orders, only: [ :index, :show, :update ] do
+    collection do
+      get :all   # Esto crea la ruta /inventory/orders/all
+    end
+    end
+
+    resources :analytics, only: [ :index ] # /inventory/analytics
   end
 
   namespace :warehouse do
-    root to: "orders#index"  # /warehouse
+    root to: "dashboard#index"  # /warehouse
+    resources :orders, only: [ :show, :update ] # /warehouse/orders
   end
 
   namespace :branch do
-    root to: "sales#index"  # /store
+    root to: "dashboard#index"  # /store
   end
 
 

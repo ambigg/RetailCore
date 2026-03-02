@@ -1,0 +1,42 @@
+<div class="sidebar">
+  <div class="logo">
+    <%= link_to "RETAILCORE / INV", inventory_root_path %>
+  </div>
+  <nav class="d-flex flex-column">
+    <%= link_to inventory_root_path, class: "nav-item" do %>
+      <i class="bi bi-bar-chart"></i> Home
+    <% end %>
+    <%= link_to inventory_analytics_path, class: "nav-item" do %>
+      <i class="bi bi-speedometer2"></i> Analytics
+    <% end %>
+    <hr style="border-color: var(--border);">
+    <%= link_to inventory_products_path, class: "nav-item" do %>
+      <i class="bi bi-box"></i> Products
+    <% end %>
+    <%= link_to "#", class: "nav-item" do %>
+      <i class="bi bi-bag"></i> Variants
+    <% end %>
+    <hr style="border-color: var(--border);">
+    <%= link_to "#", class: "nav-item" do %>
+      <i class="bi bi-shop"></i> Branches
+    <% end %>
+    <%= link_to "#", class: "nav-item" do %>
+      <i class="bi bi-building"></i> Warehouses
+    <% end %>
+    <hr style="border-color: var(--border);">
+    <%= link_to inventory_orders_path, class: "nav-item" do %>
+      <i class="bi bi-bag"></i> Orders
+    <% end %>
+  </nav>
+  <div class="mt-auto dropdown">
+    <a class="nav-item dropdown-toggle" href="#" data-bs-toggle="dropdown">
+      <i class="bi bi-person"></i>
+      <%= current_user.email %>
+    </a>
+    <ul class="dropdown-menu">
+      <li><%= link_to "Settings", "#", class: "dropdown-item" %></li>
+      <li><hr class="dropdown-divider"></li>
+      <li><%= button_to "Log Out", destroy_user_session_path, method: :delete, class: "dropdown-item" %></li>
+    </ul>
+  </div>
+</div>

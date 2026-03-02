@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html class="h-100">
   <head>
-    <title><%= content_for(:title) || "RetailCore Inventory" %></title>
+    <title><%= content_for(:title) || "RetailCore Admin" %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="application-name" content="Retailcore">
@@ -9,18 +9,17 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
     <%= yield :head %>
-    <%# Includes all stylesheet files in app/assets/stylesheets %>
     <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
   </head>
-  <body data-bs-theme="dark" class="d-flex flex-column h-100">
-    <%= render 'layouts/inventory/nav' %>
-    <div class="d-flex">
-      <main class="flex-grow-1 p-4">
-        <%= render 'layouts/flash'%>
+  <body>
+    <%= render 'layouts/inventory/sidebar' %>
+    <div class="d-flex flex-column flex-grow-1">
+      <main class="main">
+        <%= render 'layouts/flash' %>
         <%= yield %>
       </main>
+      <%= render 'layouts/footer' %>
     </div>
-    <%= render 'layouts/footer' %>
   </body>
 </html>

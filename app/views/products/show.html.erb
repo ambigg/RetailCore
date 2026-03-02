@@ -1,31 +1,46 @@
-<div class="container py-5">
-  <div class="row justify-content-center">
-    <div class="col-md-8 col-lg-6">
-      <%= link_to "← Back to shop", root_path, class: "text-decoration-none text-muted mb-3 d-block" %>
-      <h1 class="mb-3"><%= @product.name %></h1>
-      <p class="text-muted mb-2"><%= @product.category %></p>
-      <p class="mb-4"><%= @product.description %></p>
-      <% if @variants.any? %>
-        <div class="mb-3">
-          <label class="form-label fw-semibold">Variant</label>
-          <select class="form-select" id="variant-select">
-            <% @variants.each do |variant| %>
-              <option value="<%= variant.id %>">
-                <%= variant.size %> / <%= variant.color %> - <%= number_to_currency(variant.price) %>
-              </option>
-            <% end %>
-          </select>
-        </div>
-        <h2 class="mb-4"><%= number_to_currency(@selected_variant.price) %></h2>
-        <% if user_signed_in? %>
-          <%= button_to "Add to Cart", "#", class: "btn btn-dark btn-lg w-100" %>
-        <% else %>
-          <%= link_to "Login to Buy", new_user_session_path, class: "btn btn-dark btn-lg w-100" %>
-        <% end %>
-      <% else %>
-        <button class="btn btn-secondary btn-lg w-100" disabled>No variants available</button>
-      <% end %>
-      <p class="text-muted small mt-3">Sold by: <%= @product.user.email %></p>
-    </div>
+<div class="page-header">
+  <div>
+    <h1 class="page-title"><%= @product.name %></h1>
+    <p class="page-subtitle"><%= @product.description %></p>
   </div>
+  <%= link_to "← Back to shop", root_path, class: "btn btn-outline" %>
 </div>
+<% if @variants.any? %>
+  <div class="card">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Size</th>
+          <th>Color</th>
+          <th>Material</th>
+          <th>Price</th>
+          <th>Stock</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @variants.each do |variant| %>
+          <tr>
+            <td><%= variant.size %></td>
+            <td><%= variant.color %></td>
+            <td><%= variant.material %></td>
+            <td class="text-accent"><%= number_to_currency(variant.price) %></td>
+            <% central_inventory = variant.inventories.find { |inv| inv.branch_id.nil? } stock = central_inventory ? central_inventory.quantity : 0%>
+            <td><%= stock %></td>
+            <td>
+              <%= form_tag add_to_cart_path(variant.id), method: :post, local: true, data: { turbo: false } do %>
+                <div class="d-flex align-items-center gap-2">
+                  <%= number_field_tag :quantity, 1, min: 1, class: "form-control", style: "width: 80px;" %>
+                  <%= submit_tag "Add to Cart", class: "btn btn-primary" %>
+                </div>
+              <% end %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+<% else %>
+  <p class="text-muted">No variants available.</p>
+<% end %>
+<p class="text-muted mt-3">Sold by: <%= @product.user.email %></p>

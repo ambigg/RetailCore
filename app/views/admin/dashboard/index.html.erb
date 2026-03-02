@@ -1,49 +1,46 @@
-<div class="container">
-  <h1>Dashboard ADMIN</h1>
-  <div class="row mt-4">
-    <div class="col-md-3">
-      <div class="card">
-        <div class="card-body">
-          <h5 class="card-title">Products</h5>
-          <p class="card-text display-4"><%= @product_count %></p>
-          <%=link_to "See All", admin_products_path, class: "btn btn-primary"%>
-        </div>
+<div class="page-header">
+  <div>
+    <h1 class="page-title">Dashboard</h1>
+    <div class="page-subtitle"><%= Time.current.strftime("%B %d, %Y") %></div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-4 mb-3">
+    <div class="card">
+      <div class="card-body">
+        <div class="page-subtitle mb-2">Sales Today</div>
+        <div class="page-title text-accent"><%= number_to_currency(@sales_today) %></div>
       </div>
     </div>
-    <div class="col-md-3">
-      <div class="card">
-        <div class="card-body">
-          <h5 class="card-title">Branches</h5>
-          <p class="card-text display-4"><%= @branch_count %></p>
-          <%= link_to "See All",  admin_branches_path, class: "btn btn-primary" %>
-        </div>
+  </div>
+  <div class="col-md-4 mb-3">
+    <div class="card">
+      <div class="card-body">
+        <div class="page-subtitle mb-2">Total Orders</div>
+        <div class="page-title"><%= @total_orders %></div>
       </div>
     </div>
-    <div class="col-md-3">
-      <div class="card">
-        <div class="card-body">
-          <h5 class="card-title">Warehouses</h5>
-          <p class="card-text display-4">0</p>
-          <%=link_to "See All", admin_warehouses_path, class: "btn btn-primary"%>
-        </div>
-      </div>
-    </div>
-    <div class="col-md-3">
-      <div class="card">
-        <div class="card-body">
-          <h5 class="card-title">Users</h5>
-          <p class="card-text display-4">0</p>
-          <%=link_to "See All", admin_users_path, class: "btn btn-primary"%>
-        </div>
+  </div>
+  <div class="col-md-4 mb-3">
+    <div class="card">
+      <div class="card-body">
+        <div class="page-subtitle mb-2">Average Ticket</div>
+        <div class="page-title text-accent"><%= number_to_currency(@average_ticket) %></div>
       </div>
     </div>
   </div>
 </div>
-<h1>ADMIN INDEX</h1>
-<h1>User 
-  <%= current_user.email %>
-</h1>
-<h1>
-  Role: 
-  <%= current_user.role%>
-</h1>
+<div class="page-subtitle mb-2 mt-4">Sales Last 30 Days</div>
+<div class="card">
+  <div class="card-body">
+    <%= line_chart @sales_last_30_days,
+        colors: ["#e8ff47"],
+        library: {
+          scales: {
+            x: { grid: { color: "#333" }, ticks: { color: "#888" } },
+            y: { grid: { color: "#333" }, ticks: { color: "#888" } }
+          },
+          plugins: { legend: { display: false } }
+        } %>
+  </div>
+</div>

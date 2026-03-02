@@ -1,0 +1,38 @@
+<div class="page-header">
+  <div>
+    <div class="page-title">Dashboard</div>
+    <div class="page-subtitle"><%= Time.current.year %> · INVENTORY</div>
+  </div>
+  <%= link_to inventory_orders_path, class: "btn btn-primary" do %>
+    <i class="bi bi-arrow-bar-left"></i> Back 
+  <% end %>
+</div>
+<div class="table">
+  <h3 class="page-title ">All Orders</h3>
+  <div class="card">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>ORDER ID</th>
+          <th>CUSTOMER</th>
+          <th>CREATED AT</th>
+          <th>TOTAL</th>
+          <th>STATUS</th>
+          <th ></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @orders.each do |order| %>
+          <tr>
+            <td><%= order.id %></td>
+            <td><%= order.customer.email %></td>
+            <td><%= order.created_at.strftime("%B %d, %Y") %></td>
+            <td><%= number_to_currency(order.total) %></td>
+            <td><%= order.status %></td>
+            <td><%= link_to 'Show', inventory_order_path(order) %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

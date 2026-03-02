@@ -1,11 +1,12 @@
-<div class="container py-4">
-  <div class="d-flex justify-content-between align-items-center mb-4">
-    <h1><%= @product.name %> - <%= @variant.sku %> - <%= @variant.color %> - <%= @variant.size %></h1>
-    <%= link_to inventory_product_path(@product), class: "btn btn-outline-secondary" do %>
-      <i class="bi bi-arrow-left"></i> Back
-    <% end %>
+<div class="page-header">
+  <div>
+    <h1 class="page-title"><%= @product.name %></h1>
+    <div class="page-subtitle"><%= @variant.sku %> · <%= @variant.color %> · <%= @variant.size %></div>
   </div>
-  <table class="table mt-4">
+  <%= link_to "Back", inventory_product_path(@product), class: "btn btn-outline" %>
+</div>
+<div class="card">
+  <table class="table">
     <thead>
       <tr>
         <th>Branch</th>
@@ -17,7 +18,7 @@
       <% web_inventory = @inventories.find { |i| i.branch_id.nil? } %>
       <tr>
         <td>Web / General</td>
-        <td><%= web_inventory ? web_inventory.quantity : 0 %></td>
+        <td class="text-accent"><%= web_inventory ? web_inventory.quantity : 0 %></td>
         <td>
           <% if web_inventory %>
             <%= link_to "Edit", edit_inventory_product_product_variant_inventory_path(@product, @variant, web_inventory) %>
@@ -30,7 +31,7 @@
         <% inventory = @inventories.find { |i| i.branch_id == branch.id } %>
         <tr>
           <td><%= branch.name %></td>
-          <td><%= inventory ? inventory.quantity : 0 %></td>
+          <td class="text-accent"><%= inventory ? inventory.quantity : 0 %></td>
           <td>
             <% if inventory %>
               <%= link_to "Edit", edit_inventory_product_product_variant_inventory_path(@product, @variant, inventory) %>

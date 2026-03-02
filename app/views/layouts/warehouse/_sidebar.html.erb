@@ -1,0 +1,22 @@
+<div class="sidebar">
+  <div class="logo">
+    <%= link_to "RETAILCORE / WAREHOUSE ", warehouse_root_path %>
+  </div>
+  <nav class="d-flex flex-column">
+    <%= link_to warehouse_root_path, class: "nav-item" do %>
+      <i class="bi bi-bar-chart"></i> Home
+    <% end %>
+    <hr style="border-color: var(--border);">
+  </nav>
+  <div class="mt-auto dropdown">
+    <a class="nav-item dropdown-toggle" href="#" data-bs-toggle="dropdown">
+      <i class="bi bi-person"></i>
+      <%= current_user.email %>
+    </a>
+    <ul class="dropdown-menu">
+      <li><%= link_to "Settings", "#", class: "dropdown-item" %></li>
+      <li><hr class="dropdown-divider"></li>
+      <li><%= button_to "Log Out", destroy_user_session_path, method: :delete, class: "dropdown-item" %></li>
+    </ul>
+  </div>
+</div>

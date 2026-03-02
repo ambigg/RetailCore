@@ -1,0 +1,37 @@
+<div class="page-header">
+  <div>
+    <h1 class="page-title">To Ship</h1>
+    <div class="page-subtitle">orders ready to dispatch</div>
+  </div>
+</div>
+<div class="card">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Order</th>
+        <th>Customer</th>
+        <th>Items</th>
+        <th>Total</th>
+        <th>Date</th>
+        <th>Status</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @orders.each do |order| %>
+        <tr>
+          <td class="text-muted">#<%= order.id %></td>
+          <td><%= order.customer.email %></td>
+          <td class="text-muted"><%= order.order_items.count %> items</td>
+          <td class="text-accent"><%= number_to_currency(order.total) %></td>
+          <td class="text-muted"><%= order.created_at.strftime("%b %d") %></td>
+          <td><span class="badge badge-warning"><%= order.status.humanize %></span></td>
+          <td>
+            <%= link_to "View", warehouse_order_path(order), class: "btn btn-outline" %>
+            <%= button_to "Ship", warehouse_order_path(order, status: :shipped), method: :patch, class: "btn btn-primary" %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

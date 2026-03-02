@@ -1,3 +1,5 @@
-<h1>Create new product</h1>
-<%= render 'form'%>
-<p><%= link_to "Back to Products", inventory_products_path, class: "btn btn-secondary" %></p>
+<div class="page-header">
+  <h1 class="page-title">New Product</h1>
+  <%= link_to "Back to Products", inventory_products_path, class: "btn btn-outline" %>
+</div>
+<%= render 'form' %>

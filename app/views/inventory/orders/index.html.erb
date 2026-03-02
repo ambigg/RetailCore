@@ -1,0 +1,45 @@
+<div class="page-header">
+  <div>
+    <h1 class="page-title">ORDERS</h1>
+    <div class="page-subtitle"><%= Time.current.year %> · INVENTORY</div>
+  </div>
+  <%= link_to all_inventory_orders_path, class: "btn btn-primary" do %>
+    <i class="bi bi-list-ul"></i> List All Orders 
+  <% end %>
+</div>
+<div class="row">
+  <% [
+    { label: "Pending",    orders: @orders_by_status[:pending]    || [], color: "text-orange" },
+    { label: "Paid",       orders: @orders_by_status[:paid]       || [], color: "text-accent" },
+    { label: "Processing", orders: @orders_by_status[:processing] || [], color: "text-accent" },
+    { label: "Shipped",    orders: @orders_by_status[:shipped]    || [], color: "text-accent" },
+    { label: "Delivered",  orders: @orders_by_status[:delivered]  || [], color: "text-green"  },
+    { label: "Cancelled",   orders: @orders_by_status[:cancelled]   || [], color: "text-red"    }
+  ].each do |group| %>
+    <div class="col-md-4 mb-3">
+      <h3 class="page-subtitle mb-2 <%= group[:color] %>"><%= group[:label] %></h3>
+      <div class="card">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Email</th>
+              <th>Status</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% (group[:orders] || []).each do |order| %>
+              <tr>
+                <td><%= order.id %></td>
+                <td class="text-muted"><%= order.customer.email %></td>
+                <td><%= order.status %></td>
+                <td><%= link_to 'Show', inventory_order_path(order) %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  <% end %>
+</div>

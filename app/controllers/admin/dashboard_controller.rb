@@ -1,9 +1,10 @@
 class Admin::DashboardController < Admin::BaseController
   def index
-    @total_users = User.count
-    @product_count = Product.count
-    @branch_count = Branch.count
-    @recent_users = User.order(created_at: :desc).limit(5)
-    @recent_products = Product.order(created_at: :desc).limit(5)
+    @sales_today = Order.where(created_at: Time.current.all_day).sum(:total)
+    @total_orders = Order.count
+    @average_ticket = Order.average(:total)&.round(2) || 0
+     @sales_last_30_days = Order.where(created_at: 30.days.ago..Time.current)
+                               .group_by_day(:created_at)
+                               .sum(:total)
   end
 end
