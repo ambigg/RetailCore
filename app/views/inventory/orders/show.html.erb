@@ -3,7 +3,7 @@
     <h1 class="page-title">Order #<%= @order.id %></h1>
     <div class="page-subtitle"><%= @order.created_at.strftime("%B %d, %Y") %> · <span class="text-accent"><%= @order.status.humanize %></span></div>
   </div>
-  <%= link_to "Back", inventory_orders_path, class: "btn btn-outline" %>
+  <%= link_to "Back", :back, class: "btn btn-outline" %>
 </div>
 <div class="row mb-4">
   <div class="col-md-6">

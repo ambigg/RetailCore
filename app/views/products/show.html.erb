@@ -25,14 +25,23 @@
             <td><%= variant.color %></td>
             <td><%= variant.material %></td>
             <td class="text-accent"><%= number_to_currency(variant.price) %></td>
-            <% central_inventory = variant.inventories.find { |inv| inv.branch_id.nil? } stock = central_inventory ? central_inventory.quantity : 0%>
-            <td><%= stock %></td>
             <td>
-              <%= form_tag add_to_cart_path(variant.id), method: :post, local: true, data: { turbo: false } do %>
-                <div class="d-flex align-items-center gap-2">
-                  <%= number_field_tag :quantity, 1, min: 1, class: "form-control", style: "width: 80px;" %>
-                  <%= submit_tag "Add to Cart", class: "btn btn-primary" %>
-                </div>
+              <% inv = variant.inventories.find{|i| i.branch_id.nil?}%>
+              <% stock = inv ? inv.available : 0%>
+              <span class="<%= stock > 0 ? 'text-accent' : 'text-muted'%>">
+                <%= stock > 0 ? stock : "Out of stock" %>
+              </span>
+            </td>
+            <td>
+              <% if (inv = variant.inventories.find { |i| i.branch_id.nil? }) && inv.available > 0 %>
+                <%= form_tag add_to_cart_path(variant.id), method: :post, local: true, data: { turbo: false } do %>
+                  <div class="d-flex align-items-center gap-2">
+                    <%= number_field_tag :quantity, 1, min: 1, max: inv.available, class: "form-control", style: "width: 80px;" %>
+                    <%= submit_tag "Add to Cart", class: "btn btn-primary" %>
+                  </div>
+                <% end %>
+              <% else %>
+                <span class="text-muted">Unavailable</span>
               <% end %>
             </td>
           </tr>

@@ -1,0 +1,32 @@
+<h1><%= @branch.name %></h1>
+<p><%= @branch.address %> | <%= @branch.phone %> | <%= @branch.status.humanize %></p>
+<h2>Stock in this branch</h2>
+<% if @inventories.any? %>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Product</th>
+        <th>SKU</th>
+        <th>Size</th>
+        <th>Color</th>
+        <th>Material</th>
+        <th>Quantity</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @inventories.each do |inv| %>
+        <tr>
+          <td><%= inv.product_variant.product.name %></td>
+          <td><%= inv.product_variant.sku %></td>
+          <td><%= inv.product_variant.size %></td>
+          <td><%= inv.product_variant.color %></td>
+          <td><%= inv.product_variant.material %></td>
+          <td><%= inv.quantity %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <p>No stock in this branch.</p>
+<% end %>
+<%= link_to "Back to branches", :back%>

@@ -19,7 +19,7 @@ Rails.application.routes.draw do
 
   namespace :customer do
     root to: "profile#index"  # /customer
-    resources :orders, only: [ :index, :show, :new, :create ] # /customer/orders
+    resources :orders, only: [ :index, :show, :new, :create, :update ] # /customer/orders
     get "settings" => "profile#settings"
   end
 
@@ -30,13 +30,14 @@ Rails.application.routes.draw do
         resources :inventories, only: [ :new, :create, :edit, :update, :index ] # /inventory/products/:product_id/product_variants/:product_variant_id/inventories
       end
     end
-    resources :branches, only: [ :index, :show ] # /inventory/branches
-    resources :warehouse, only: [ :index, :new, :create, :edit, :update ] # /inventory/warehouses
+    resources :branches, only: [ :index, :show, :update, :edit ] # /inventory/branches
+    resources :warehouses, only: [ :index, :new, :create, :edit, :update ] # /inventory/warehouses
     resources :orders, only: [ :index, :show, :update ] do
     collection do
       get :all   # Esto crea la ruta /inventory/orders/all
     end
     end
+    get "total" => "inventory#total"
 
     resources :analytics, only: [ :index ] # /inventory/analytics
   end

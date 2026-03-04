@@ -51,4 +51,17 @@ class Customer::OrdersController < Customer::BaseController
     render :new, status: :unprocessable_entity
   end
   end
+  def update
+    @order = current_user.orders.find(params[:id])
+    if @order.update(order_params)
+      redirect_to customer_order_path(@order), notice: "Order updated successfully"
+    else
+      render :show, status: :unprocessable_entity
+    end
+  end
+
+  private
+  def order_params
+    params.require(:order).permit(:status)
+  end
 end

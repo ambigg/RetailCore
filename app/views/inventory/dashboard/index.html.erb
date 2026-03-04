@@ -20,7 +20,7 @@
     <%= link_to inventory_products_path, class: "card hover-lift text-decoration-none" do %>
       <div class="card-body text-center">
         <div class="page-subtitle mb-2">TOTAL STOCK</div>
-        <div class="page-title"><%= Product.count %></div>
+        <div class="page-title"><%= @total_stock%></div>
       </div>
     <% end %>
   </div>
@@ -28,7 +28,7 @@
     <%= link_to inventory_products_path, class: "card hover-lift text-decoration-none" do %>
       <div class="card-body text-center">
         <div class="page-subtitle mb-2">LOW STOCK</div>
-        <div class="page-title text-orange"><%= Product.count %></div>
+        <div class="page-title text-orange"><%= @low_stock%></div>
       </div>
     <% end %>
   </div>
@@ -36,7 +36,7 @@
     <%= link_to inventory_products_path, class: "card hover-lift text-decoration-none" do %>
       <div class="card-body text-center">
         <div class="page-subtitle mb-2">PENDING ORDERS</div>
-        <div class="page-title text-accent"><%= Product.count %></div>
+        <div class="page-title text-accent"><%= @pending_orders%></div>
       </div>
     <% end %>
   </div>
@@ -60,6 +60,12 @@
               <tr>
                 <td><%= product.name %></td>
                 <td class="text-muted"><%= variant.sku %></td>
+                <td>
+                  <% locations = variant.inventories.map do |inv|
+                       inv.branch ? inv.branch.name : "General"
+                  end %>
+                  <%= locations.uniq.join(", ") %>
+                </td>
                 <td class="text-accent"><%= variant.inventories.sum(:quantity) %></td>
               </tr>
             <% end %>
@@ -83,6 +89,7 @@
           <% @orders.each do |order| %>
             <tr>
               <td><%= order.id %></td>
+              <td><%= order.customer.email%></td>
               <td><%= order.status %></td>
             </tr>
           <% end %>

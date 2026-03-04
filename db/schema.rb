@@ -10,12 +10,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_03_02_040546) do
+ActiveRecord::Schema[8.1].define(version: 2026_03_02_211140) do
   create_table "branches", force: :cascade do |t|
     t.text "address"
     t.datetime "created_at", null: false
     t.string "name"
     t.string "phone"
+    t.integer "status", default: 0, null: false
     t.datetime "updated_at", null: false
   end
 
@@ -75,6 +76,29 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_02_040546) do
     t.index ["user_id"], name: "index_products_on_user_id"
   end
 
+  create_table "sale_items", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.decimal "price", precision: 10, scale: 2, null: false
+    t.integer "product_variant_id", null: false
+    t.integer "quantity", null: false
+    t.integer "sale_id", null: false
+    t.datetime "updated_at", null: false
+    t.index ["product_variant_id"], name: "index_sale_items_on_product_variant_id"
+    t.index ["sale_id"], name: "index_sale_items_on_sale_id"
+  end
+
+  create_table "sales", force: :cascade do |t|
+    t.integer "branch_id", null: false
+    t.datetime "created_at", null: false
+    t.integer "employee_id", null: false
+    t.integer "status", default: 0, null: false
+    t.decimal "total", precision: 10, scale: 2, default: "0.0", null: false
+    t.datetime "updated_at", null: false
+    t.index ["branch_id"], name: "index_sales_on_branch_id"
+    t.index ["created_at"], name: "index_sales_on_created_at"
+    t.index ["employee_id"], name: "index_sales_on_employee_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.text "address"
     t.datetime "created_at", null: false
@@ -98,4 +122,8 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_02_040546) do
   add_foreign_key "orders", "users", column: "customer_id"
   add_foreign_key "product_variants", "products"
   add_foreign_key "products", "users"
+  add_foreign_key "sale_items", "product_variants"
+  add_foreign_key "sale_items", "sales"
+  add_foreign_key "sales", "branches"
+  add_foreign_key "sales", "users", column: "employee_id"
 end

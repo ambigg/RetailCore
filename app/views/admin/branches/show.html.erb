@@ -1,0 +1,28 @@
+<h1>Branch: <%= @branch.name %></h1>
+<p>
+  <strong>Address:</strong> <%= @branch.address %><br>
+  <strong>Phone:</strong> <%= @branch.phone %><br>
+  <strong>Status:</strong> <%= @branch.status.humanize %>
+</p>
+<div class="row mb-4">
+  <table class="table">
+    <tr>
+      <th>Employee Name</th>
+      <th>Position</th>
+    </tr>
+  </table>
+  <table class="table">
+    <tr>
+      <th>Product</th>
+      <th>Variant</th>
+    </tr>
+  </table>
+  <table class="table">
+    <tr>
+      <th>Sales</th>
+      <th>Sales_Item</th>
+    </tr>
+  </table>
+</div>
+<%= link_to "Edit", edit_admin_branch_path(@branch) %> |
+<%= link_to "Back", admin_branches_path %>

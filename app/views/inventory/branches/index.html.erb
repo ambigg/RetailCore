@@ -1,5 +1,4 @@
-<h1>Branches</h1>
-<%= link_to "New Branch", new_admin_branch_path %>
+<h1>Branches Inventory</h1>
 <% if @branches.any? %>
   <table class="table">
     <thead>
@@ -8,7 +7,7 @@
         <th>Address</th>
         <th>Phone</th>
         <th>Status</th>
-        <th ></th>
+        <th>Actions</th>
       </tr>
     </thead>
     <tbody>
@@ -18,11 +17,11 @@
           <td><%= branch.address %></td>
           <td><%= branch.phone %></td>
           <td><%= branch.status.humanize %></td>
-          <td><%= link_to "Show", admin_branch_path(branch) %></td>
+          <td><%= link_to "View Stock", inventory_branch_path(branch) %></td>
         </tr>
       <% end %>
     </tbody>
   </table>
 <% else %>
-  <p>No branches yet.</p>
+  <p>No branches available.</p>
 <% end %>

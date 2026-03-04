@@ -1,17 +1,35 @@
-<h1>PROFILE VIEW</h1>
-<h1> Email:
-  <%= current_user.email %>
-</h1>
-<h1>
-  Role:
-  <%= current_user.role%>
-</h1>
-<h2> Name:
-  <%= current_user.name%>
-</h2>
-<h2> Address:
-  <%= current_user.address%>
-</h2>
-<h2> Phone:
-  <%= current_user.phone%>
-</h2>
+<div class="page-header">
+  <div>
+    <h1 class="page-title">Profile</h1>
+    <div class="page-subtitle">account information</div>
+  </div>
+  <%= link_to "Edit Profile", edit_user_registration_path, class: "btn btn-outline" %>
+</div>
+<div class="card" >
+  <div class="profile-header">
+    <div class="avatar"><%= current_user.name&.first&.upcase || current_user.email.first.upcase %></div>
+    <div>
+      <div class="page-title"><%= current_user.name %></div>
+      <div class="page-subtitle"><%= current_user.email %></div>
+      <span class="role-badge"><%= current_user.role %></span>
+    </div>
+  </div>
+  <div class="profile-body">
+    <div class="field">
+      <div class="form-label">Name</div>
+      <div class="text-muted"><%= current_user.name.presence || "—" %></div>
+    </div>
+    <div class="field">
+      <div class="form-label">Email</div>
+      <div class="text-muted"><%= current_user.email %></div>
+    </div>
+    <div class="field">
+      <div class="form-label">Phone</div>
+      <div class="text-muted"><%= current_user.phone.presence || "—" %></div>
+    </div>
+    <div class="field">
+      <div class="form-label">Address</div>
+      <div class="text-muted"><%= current_user.address.presence || "—" %></div>
+    </div>
+  </div>
+</div>

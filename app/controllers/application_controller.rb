@@ -10,7 +10,7 @@ class ApplicationController < ActionController::Base
       branch_root_path
     elsif resource.warehouse_staff?
       warehouse_root_path
-    else
+    else resource.customer?
       root_path
     end
   end
