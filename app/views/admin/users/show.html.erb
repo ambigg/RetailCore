@@ -1,33 +1,54 @@
-<div class="container py-4">
-  <h1><%= @user.name %> Profile</h1>
-  <p><strong>Email:</strong> <%= @user.email %></p>
-  <p><strong>Phone:</strong> <%= @user.phone %></p>
-  <p><strong>Address:</strong> <%= @user.address %></p>
-  <div class="d-flex justify-content-between align-items-center mb-5">
-    <h1>Orders</h1>
-    <%= link_to admin_users_path, class: "btn btn-outline-light rounded-pill px-4 d-flex align-items-center gap-2" do %>
-      <i class="bi bi-people"></i> Back to Users 
-    <% end %>
+<div class="page-header">
+  <div>
+    <h1 class="page-title"><%= @user.name %></h1>
+    <div class="page-subtitle"><%= @user.email %> · <%= @user.role %></div>
   </div>
-  <div class=" table-responsive">
-    <table class="table">
-      <thead>
+  <%= link_to "Back", :back, class: "btn btn-outline" %>
+</div>
+<div class="row mb-4">
+  <div class="col-md-6">
+    <div class="card">
+      <div class="profile-header">
+        <div class="avatar"><%= @user.name&.first&.upcase || @user.email.first.upcase %></div>
+        <div>
+          <div class="page-title"><%= @user.name %></div>
+          <div class="page-subtitle"><%= @user.email %></div>
+          <span class="role-badge"><%= @user.role %></span>
+        </div>
+      </div>
+      <div class="profile-body">
+        <div class="field">
+          <div class="form-label">Phone</div>
+          <div class="text-muted"><%= @user.phone.presence || "—" %></div>
+        </div>
+        <div class="field">
+          <div class="form-label">Address</div>
+          <div class="text-muted"><%= @user.address.presence || "—" %></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="page-subtitle mb-2">Orders</div>
+<div class="card">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Order ID</th>
+        <th>Date</th>
+        <th>Status</th>
+        <th>Total</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @orders.each do |order| %>
         <tr>
-          <th>Order ID</th>
-          <th>Order Date</th>
-          <th>Status</th>
-          <th>Total</th>
+          <td class="text-muted">#<%= order.id %></td>
+          <td><%= order.created_at.strftime("%B %d, %Y") %></td>
+          <td><%= order.status.humanize %></td>
+          <td class="text-accent"><%= number_to_currency(order.total) %></td>
         </tr>
-      </thead>
-      <tbody>
-        <% @orders.each do |order| %>
-          <tr>
-            <td><%= order.id %></td>
-            <td><%= order.created_at.strftime("%B %d, %Y") %></td>
-            <td><%= order.status.humanize %></td>
-            <td><%= number_to_currency(order.total) %></td>
-          </tr>
-        <% end %>
-      </tbody>
-    </table>
-  </div>
+      <% end %>
+    </tbody>
+  </table>
+</div>

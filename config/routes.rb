@@ -34,7 +34,7 @@ Rails.application.routes.draw do
     resources :warehouses, only: [ :index, :new, :create, :edit, :update ] # /inventory/warehouses
     resources :orders, only: [ :index, :show, :update ] do
     collection do
-      get :all   # Esto crea la ruta /inventory/orders/all
+      get :all  # /inventory/orders/all
     end
     end
     get "total" => "inventory#total"

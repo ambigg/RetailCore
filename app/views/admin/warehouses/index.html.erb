@@ -1,1 +1,27 @@
-<h1>WAREHOUSES ADMIN VIEW</h1>
+<h1>Warehouses</h1>
+<% %>
+<table class="table">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Address</th>
+      <th>Phone</th>
+      <th>Status</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @branches.each do |branch| %>
+      <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td><%= link_to "View Stock", inventory_branch_path(branch) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<% %>
+<p>No branches available.</p>
+<% %>

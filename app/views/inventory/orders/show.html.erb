@@ -58,14 +58,21 @@
   </table>
 </div>
 <div class="page-subtitle mb-2">Update Status</div>
-<div class="card">
-  <div class="card-body d-flex gap-2">
-    <% if @order.pending? %>
-      <%= button_to "Mark as Paid", inventory_order_path(@order),
+<div class="card-body d-flex gap-2">
+  <% if @order.pending? %>
+    <%= button_to "Mark as Paid", inventory_order_path(@order),
                   method: :patch, params: { status: :paid }, class: "btn btn-outline" %>
-    <% elsif @order.paid? %>
-      <%= button_to "Approve", inventory_order_path(@order),
+  <% elsif @order.paid? %>
+    <%= button_to "Approve", inventory_order_path(@order),
                   method: :patch, params: { status: :processing }, class: "btn btn-primary" %>
-    <% end %>
-  </div>
+  <% elsif @order.processing? %>
+    <%= button_to "Process",inventory_order_path(@order),
+                  method: :patch, params: { status: :shipped}, class: "btn btn-primary" %>
+  <% elsif @order.shipped? %>
+    <%= button_to "Ship", inventory_order_path(@order),
+                  method: :patch, params: { status: :delivered}, class: "btn btn-primary" %>
+  <% elsif @order.delivered? %>
+    <%= button_to "Cancel", inventory_order_path(@order),
+                  method: :patch, params: { status: :cancelled}, class: "btn btn-primary" %>
+  <% end %>
 </div>

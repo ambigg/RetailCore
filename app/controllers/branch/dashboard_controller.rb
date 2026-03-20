@@ -8,7 +8,7 @@ class Branch::DashboardController < Branch::BaseController
 
   def new
     @sale = current_user.branch.sales.new
-    @sale.sale_items.build # un item vacío para el formulario
+    @sale.sale_items.build
   end
 
   def create
